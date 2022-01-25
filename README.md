@@ -1,3 +1,16 @@
+
+# SnapATAC Fix Version
+
+## Dependencies
+* Use python 2.7 version snaptools
+
+## Install
+```
+remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")
+```
+
+
+## Original README:
 ## SnapATAC (Latest Updates: 2019-09-19)
 **SnapATAC** (**S**ingle **N**ucleus **A**nalysis **P**ipeline for **ATAC**-seq) is a fast, accurate and comprehensive method for analyzing single cell ATAC-seq datasets. 
 
