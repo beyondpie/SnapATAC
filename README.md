@@ -11,7 +11,7 @@ Use conda to maintain the enviroment.
 ## SnapATAC depends on raster, which depends on terra, and terra needs gdal.
 conda install -c conda-forge libgdal
 ## install SnapATAC
-R -e 'remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")'
+Rscript -e 'remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")'
 ```
 
 
