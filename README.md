@@ -3,6 +3,7 @@
 
 ## Dependencies
 * Use python 2.7 version snaptools
+Though we can install snaptools on python >= 3.0, but snaptools have a binary string habit when encoding/decoding the chromosmes, which lead later mapping could be wrong if we ignore this.
 
 ## Install on Linux
 Use conda to maintain the enviroment.
