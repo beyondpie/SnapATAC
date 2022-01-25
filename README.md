@@ -6,7 +6,7 @@
 
 - Though we can install snaptools on python >= 3.0, but snaptools have a binary string habit when encoding/decoding the chromosmes, which lead later mapping could be wrong if we ignore this.
 
-- When use `addBmatToSnap`, python2-version snaptools and python3-version snaptools give different colname names. But the matrix is the same. (Only the column order is different.)
+- When use `addBmatToSnap`, python2-version snaptools and python3-version snaptools give different colname names. But the matrix is the same. (Only the column order is different, so the matrix is then completely wrong even we align the colnames).
 
 ## Install on Linux
 Use conda to maintain the enviroment.
