@@ -14,6 +14,22 @@ conda install -c conda-forge libgdal
 Rscript -e 'remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")'
 ```
 
+## Install on MacOS
+Personnally, I use Brew to maintain the enviroment. I found conda
+version R may have some issues on MacOS, so later I just skip it. 
+
+```
+brew install gdal proj sqlite
+## when install terra, I also have "libproj or sqlite3 not found in
+## standard or given location" errors.
+## From https://github.com/r-spatial/sf/issues/1312
+## In R
+install.packages(“terra”, type = "source", configure.args = "--with-gdal-config=/usr/local/bin/gdal-config --with-geos-config=/usr/local/bin/geos-config --with-proj-include=/usr/local/include/ --with-proj-lib=/usr/local/lib/ --with-proj-share=/usr/local/share/proj/")
+## Maybe this also works: install.packages(“terra”, configure.args = "--with-proj-lib=/usr/local/lib/")
+
+## Then we can install SnapATAC in R 
+remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")
+```
 
 ## Original README:
 ## SnapATAC (Latest Updates: 2019-09-19)
