@@ -4,9 +4,14 @@
 ## Dependencies
 * Use python 2.7 version snaptools
 
-## Install
+## Install on Linux
+Use conda to maintain the enviroment.
+
 ```
-remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")
+## SnapATAC depends on raster, which depends on terra, and terra needs gdal.
+conda install -c conda-forge libgdal
+## install SnapATAC
+R -e 'remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")'
 ```
 
 
