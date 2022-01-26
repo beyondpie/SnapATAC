@@ -85,7 +85,9 @@ setMethod(
 	   return(x);
 })
 
+#' Initial an empty Jaccard class
 #' @importFrom methods new
+#' @export
 newJaccard <- function () {
 	res = new("jaccard", 
 			  jmat=matrix(0,0,0), 
