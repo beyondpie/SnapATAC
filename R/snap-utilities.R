@@ -1406,6 +1406,111 @@ snapRbind <- function(obj1, obj2){
 	return(res)
 }
 
+#' Combine snap objects
+#'
+#' We have checked this function behaviour with snapRbind.
+#' They are identical.
+#' 
+#' @param snapList List of snap objects
+#' @return a combined snap object
+#' @export
+snapListRbind <- function(snapList){
+  message("Check if all the object are snap objects.")
+  for (i in length(snapList)) {
+    snap <- snapList[[i]]
+    if(!is.snap(snap)) {
+      stop(paste("Error: @snapListRbind:", i, "th snap is not a snap object!"))
+    }
+  }
+  message("Check if any of the object have repeat barcodes.")
+  barcodes <- lapply(snapList, function(snap) {
+    return(paste(snap@file, snap@barcode, sep = "."))
+  })
+  nUnique <- length(unique(unlist(barcodes)))
+  nAll <- Reduce(sum, Map(length, barcodes))
+  message(nAll, " barcodes in total.")
+  if (nUnique != nAll) {
+    stop("Error: @snapListRbind: identical barcodes found")
+  }
+  barcode <- unlist(lapply(snapList, function(s) {
+    return(s@barcode)
+  }))
+  rm(barcodes)
+
+	message("Summarize the metadata")
+  metaDataList <- lapply(snapList, function(s) {s@metaData})
+  if(all(unlist(Map(nrow, metaDataList)))) {
+    metaData <- do.call(rbind, metaDataList)
+  } else {
+    message("Some snaps have no metaData, return a empty metadata finally.")
+    metaData <- data.frame()
+  }
+  rm(metaDataList)
+	
+	# check feature
+  checkFeature <- function(obj1, obj2, slotName = "feature") {
+    feature1 <- slot(obj1, slotName)
+    feature2 <- slot(obj1, slotName)
+    if((length(feature1) == 0) != (length(feature2) == 0)){
+      stop("different feature found in obj1 and obj2!")
+    }
+    if(length(feature1) > 0){
+      if(FALSE %in% (feature1$name == feature2$name)){
+        stop("Error: @snapRbind: different feature found in obj1 and obj2!")
+      }
+    }
+    return(TRUE)
+  }
+  message("Check if features are identical.")
+  invisible(lapply(snapList, function(s) {
+    checkFeature(snapList[[1]], s, slotName = "feature")
+  }))
+  feature <- snapList[[1]]@feature
+  
+	# check peak
+  message("Check if peaks are identical.")
+  invisible(lapply(snapList, function(s) {
+    checkFeature(snapList[[1]], s, slotName = "peak")
+  }))
+  peak <- snapList[[1]]@peak
+
+  ## merge matrix
+  mergeMatrix <- function(snapList, slotName = "bmat") {
+    bmatList <- lapply(snapList, function(s) {
+      slot(s, slotName)
+    })
+    for( i in length(bmatList)) {
+      b <- bmatList[[i]]
+      if ( (length(bmatList[[1]]) ==0 ) != (length(b) ==0 )) {
+        t <- paste0(i,"th "," of ", slotName, " has different dimentions with the first one.")
+        stop(t)
+      }
+    }
+    return(do.call(rbind, bmatList))
+  }
+  bmat <- mergeMatrix(snapList, slotName = "bmat")
+  gmat <- mergeMatrix(snapList, slotName = "gmat")
+  pmat <- mergeMatrix(snapList, slotName = "pmat")
+  smatList <- lapply(snapList, function(s) {
+    return(s@smat)
+  })
+  dmat <- mergeMatrix(smatList, slotName = "dmat")
+
+  res <- newSnap()
+  res@feature <- feature
+  res@peak <- peak
+  res@barcode <- barcode
+  res@file <- unlist(lapply(snapList, function(s){s@file}))
+  res@sample <- unlist(lapply(snapList, function(s){s@sample}))
+  res@metaData <- metaData
+  res@bmat <- bmat
+  res@pmat <- pmat
+  res@gmat <- gmat
+  res@smat@dmat <- dmat
+  res@smat@sdev <- snapList[[1]]@smat@sdev
+  return(res)
+}
+
 #' Cell filtration
 #'
 #' This function takes a snap object as input and filter cells based on given cutoffs. 
