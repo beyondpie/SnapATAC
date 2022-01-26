@@ -4,10 +4,18 @@
 \alias{runMACS}
 \title{Call Peaks Using MACS2}
 \usage{
-runMACS(obj, output.prefix, path.to.snaptools, path.to.macs, gsize, tmp.folder,
+runMACS(
+  obj,
+  output.prefix,
+  path.to.snaptools,
+  path.to.macs,
+  gsize,
+  tmp.folder,
   buffer.size = 500,
   macs.options = "--nomodel --shift 37 --ext 73 --qval 1e-2 -B --SPMR --call-summits",
-  num.cores = 1, keep.minimal = TRUE)
+  num.cores = 1,
+  keep.minimal = TRUE
+)
 }
 \arguments{
 \item{obj}{A snap object.}

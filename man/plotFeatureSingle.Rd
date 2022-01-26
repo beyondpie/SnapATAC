@@ -4,8 +4,19 @@
 \alias{plotFeatureSingle}
 \title{plotFeatureSingle}
 \usage{
-plotFeatureSingle(obj, feature.value, method, point.size, point.shape,
-  down.sample, pdf.file.name, pdf.width, pdf.height, quantiles, ...)
+plotFeatureSingle(
+  obj,
+  feature.value,
+  method,
+  point.size,
+  point.shape,
+  down.sample,
+  pdf.file.name,
+  pdf.width,
+  pdf.height,
+  quantiles,
+  ...
+)
 }
 \arguments{
 \item{obj}{A snap object.}

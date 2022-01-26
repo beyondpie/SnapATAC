@@ -4,8 +4,17 @@
 \alias{runKNN}
 \title{K Nearest Neighbour Graph Construction}
 \usage{
-runKNN(obj, eigs.dims, weight.by.lambda, k, nn.eps, save.knn, filename, snn,
-  snn.prune)
+runKNN(
+  obj,
+  eigs.dims,
+  weight.by.lambda,
+  k,
+  nn.eps,
+  save.knn,
+  filename,
+  snn,
+  snn.prune
+)
 }
 \arguments{
 \item{obj}{A snap object}

@@ -4,8 +4,17 @@
 \alias{runDimReduct}
 \title{Linear Dimentionality Reduction}
 \usage{
-runDimReduct(obj, pc.num, input.mat, method, center, scale, seed.use, maxit,
-  ...)
+runDimReduct(
+  obj,
+  pc.num,
+  input.mat,
+  method,
+  center,
+  scale,
+  seed.use,
+  maxit,
+  ...
+)
 }
 \arguments{
 \item{obj}{A snap obj.}

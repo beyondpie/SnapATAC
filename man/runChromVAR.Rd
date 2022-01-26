@@ -4,9 +4,13 @@
 \alias{runChromVAR}
 \title{Estimate Motif Variability Using ChromVAR}
 \usage{
-runChromVAR(obj, input.mat = c("pmat", "bmat"),
-  genome = BSgenome.Hsapiens.UCSC.hg19, min.count = 10,
-  species = "Homo sapiens")
+runChromVAR(
+  obj,
+  input.mat = c("pmat", "bmat"),
+  genome = BSgenome.Hsapiens.UCSC.hg19,
+  min.count = 10,
+  species = "Homo sapiens"
+)
 }
 \arguments{
 \item{obj}{A snap object.}

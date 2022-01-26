@@ -4,8 +4,17 @@
 \alias{plotDimReductElbow}
 \title{Elbow Plot for Dimentionality Reduction Result}
 \usage{
-plotDimReductElbow(obj, point.size, point.shape, point.color, point.alpha,
-  pdf.file.name, pdf.height, pdf.width, ...)
+plotDimReductElbow(
+  obj,
+  point.size,
+  point.shape,
+  point.color,
+  point.alpha,
+  pdf.file.name,
+  pdf.height,
+  pdf.width,
+  ...
+)
 }
 \arguments{
 \item{obj}{A snap object}

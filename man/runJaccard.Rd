@@ -28,7 +28,7 @@ in which each entry Jij equals the intersection over the union between cell i an
 }
 \details{
 Calculating jaccard index becomes exponentially time-consuming and also memory 
-intense with the increase of cell number.
+intense with the increase of cell number. 
 
 The most memory and time consuming step of our procedure is the calculation of jaccard index matrix. 
 This step increases exponentially with the increase of cell number. Here, we calculate a partial jaccard 

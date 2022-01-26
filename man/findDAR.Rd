@@ -4,8 +4,18 @@
 \alias{findDAR}
 \title{Identifiy Differential Accessible Regions (DARs)}
 \usage{
-findDAR(obj, input.mat, cluster.pos, cluster.neg, cluster.neg.method, bcv, fdr,
-  pvalue, test.method, seed.use)
+findDAR(
+  obj,
+  input.mat,
+  cluster.pos,
+  cluster.neg,
+  cluster.neg.method,
+  bcv,
+  fdr,
+  pvalue,
+  test.method,
+  seed.use
+)
 }
 \arguments{
 \item{obj}{A snap object.}

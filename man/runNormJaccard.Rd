@@ -4,8 +4,19 @@
 \alias{runNormJaccard}
 \title{Normalize Jaccard Index Matrix}
 \usage{
-runNormJaccard(obj, tmp.folder, method, row.center, row.scale, low.threshold,
-  high.threshold, do.par, ncell.chunk, num.cores, seed.use)
+runNormJaccard(
+  obj,
+  tmp.folder,
+  method,
+  row.center,
+  row.scale,
+  low.threshold,
+  high.threshold,
+  do.par,
+  ncell.chunk,
+  num.cores,
+  seed.use
+)
 }
 \arguments{
 \item{obj}{A snap obj}

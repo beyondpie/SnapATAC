@@ -4,7 +4,8 @@
 \name{demo.sp}
 \alias{demo.sp}
 \title{Single Nucleus ATAC-seq Object}
-\format{An object of class \code{"snap"} with 100 cells:
+\format{
+An object of class \code{"snap"} with 100 cells:
 \describe{
   \item{metData}{meta data of each cell}
   \item{bmat}{cell x bin matrix}
@@ -15,7 +16,8 @@
   \item{cluster}{cluster result}
   \item{tsne}{tsne cooridnates}
   \item{umap}{umap cooridnates}
-}}
+}
+}
 \usage{
 data(demo.sp)
 }

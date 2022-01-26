@@ -4,8 +4,15 @@
 \alias{runLSA}
 \title{Latent Semantic Analysis}
 \usage{
-runLSA(obj, input.mat = c("bmat", "pmat"), pc.num = 50, logTF = FALSE,
-  scale.factor = 1e+05, min.cell = 10, seed.use = 10)
+runLSA(
+  obj,
+  input.mat = c("bmat", "pmat"),
+  pc.num = 50,
+  logTF = FALSE,
+  scale.factor = 1e+05,
+  min.cell = 10,
+  seed.use = 10
+)
 }
 \arguments{
 \item{obj}{A snap obj}
@@ -32,7 +39,7 @@ of barcodes in the matrix and the number of barcodes where the peak has a non-ze
 greater weight to counts in peaks that occur in fewer barcodes. Singular value decomposition (SVD) is 
 performed on this normalized matrix using IRLBA without scaling or centering, to produce the transformed 
 matrix in lower dimensional space, as well as the components and the singular values signifying the 
-importance of each component.
+importance of each component. 
 
 LSA has four major steps:
 1) term frequency - TF = t(t(X) / Matrix::colSums(X)); When logTF is TRUE, TF is also log scaled.

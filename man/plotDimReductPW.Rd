@@ -4,8 +4,18 @@
 \alias{plotDimReductPW}
 \title{Pairwise plot for Dimentionality Reduction Result}
 \usage{
-plotDimReductPW(obj, eigs.dims, point.size, point.color, point.shape,
-  point.alpha, down.sample, pdf.file.name, pdf.height, pdf.width)
+plotDimReductPW(
+  obj,
+  eigs.dims,
+  point.size,
+  point.color,
+  point.shape,
+  point.alpha,
+  down.sample,
+  pdf.file.name,
+  pdf.height,
+  pdf.width
+)
 }
 \arguments{
 \item{obj}{A snap object}

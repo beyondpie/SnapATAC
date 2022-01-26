@@ -4,8 +4,18 @@
 \alias{runViz}
 \title{Dimentionality Reduction for Visualization}
 \usage{
-runViz(obj, dims, eigs.dims, method, fast_tsne_path, Y.init, seed.use,
-  num.cores, tmp.folder, ...)
+runViz(
+  obj,
+  dims,
+  eigs.dims,
+  method,
+  fast_tsne_path,
+  Y.init,
+  seed.use,
+  num.cores,
+  tmp.folder,
+  ...
+)
 }
 \arguments{
 \item{obj}{A snap object.}

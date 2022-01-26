@@ -4,7 +4,14 @@
 \alias{runSnapAddPmat}
 \title{Add cell-by-peak matrix to a snap file}
 \usage{
-runSnapAddPmat(obj, peak, path.to.snaptools, tmp.folder, num.cores, buffer.size)
+runSnapAddPmat(
+  obj,
+  peak,
+  path.to.snaptools,
+  tmp.folder,
+  num.cores,
+  buffer.size
+)
 }
 \arguments{
 \item{obj}{A snap obj.}

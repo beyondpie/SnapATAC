@@ -4,10 +4,20 @@
 \alias{runLDA}
 \title{Latent Dirichlet Allocation}
 \usage{
-runLDA(obj, input.mat = c("bmat", "pmat"), topic = c(10, 20, 30),
-  method = c("Z-score", "Probability"), num.cores = 1, min.cell = 10,
-  seed.use = 10, iterations = 500, burnin = 250, alpha = 50,
-  alphaByTopic = TRUE, beta = 0.1)
+runLDA(
+  obj,
+  input.mat = c("bmat", "pmat"),
+  topic = c(10, 20, 30),
+  method = c("Z-score", "Probability"),
+  num.cores = 1,
+  min.cell = 10,
+  seed.use = 10,
+  iterations = 500,
+  burnin = 250,
+  alpha = 50,
+  alphaByTopic = TRUE,
+  beta = 0.1
+)
 }
 \arguments{
 \item{obj}{A snap obj}

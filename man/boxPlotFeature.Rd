@@ -4,8 +4,20 @@
 \alias{boxPlotFeature}
 \title{Feature Enrichment Boxplot}
 \usage{
-boxPlotFeature(obj, feature, outline, ylab, main, add.point, point.size,
-  point.shape, point.alpha, pdf.file.name, pdf.height, pdf.width)
+boxPlotFeature(
+  obj,
+  feature,
+  outline,
+  ylab,
+  main,
+  add.point,
+  point.size,
+  point.shape,
+  point.alpha,
+  pdf.file.name,
+  pdf.height,
+  pdf.width
+)
 }
 \arguments{
 \item{obj}{A snap object.}

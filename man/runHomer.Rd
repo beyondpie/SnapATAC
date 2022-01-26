@@ -4,9 +4,25 @@
 \alias{runHomer}
 \title{Motif Analysis Using Homer}
 \usage{
-runHomer(obj, result.dir, mat, path.to.homer, genome, num.cores, motif.length,
-  scan.size, optimize.count, background, local.background, only.known,
-  only.denovo, fdr.num, cache, keep.minimal, ...)
+runHomer(
+  obj,
+  result.dir,
+  mat,
+  path.to.homer,
+  genome,
+  num.cores,
+  motif.length,
+  scan.size,
+  optimize.count,
+  background,
+  local.background,
+  only.known,
+  only.denovo,
+  fdr.num,
+  cache,
+  keep.minimal,
+  ...
+)
 }
 \arguments{
 \item{obj}{A snap object.}

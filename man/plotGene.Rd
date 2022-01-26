@@ -4,11 +4,29 @@
 \alias{plotGene}
 \title{Plot gene-body accessibility level}
 \usage{
-plotGene(obj, gene.names, viz.method, point.size, point.color, point.shape,
-  background.point, background.point.color, background.point.alpha,
-  background.point.size, background.point.shape, low.value, high.value,
-  down.sample, seed.use, plot.nrow, plot.ncol, pdf.file.name, pdf.height,
-  pdf.width, ...)
+plotGene(
+  obj,
+  gene.names,
+  viz.method,
+  point.size,
+  point.color,
+  point.shape,
+  background.point,
+  background.point.color,
+  background.point.alpha,
+  background.point.size,
+  background.point.shape,
+  low.value,
+  high.value,
+  down.sample,
+  seed.use,
+  plot.nrow,
+  plot.ncol,
+  pdf.file.name,
+  pdf.height,
+  pdf.width,
+  ...
+)
 }
 \arguments{
 \item{obj}{A snap object.}

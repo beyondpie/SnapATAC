@@ -4,8 +4,14 @@
 \alias{predictGenePeakPair}
 \title{Link Distal Regulatory Elements (peaks) to Putative Target Genes}
 \usage{
-predictGenePeakPair(obj, input.mat = c("pmat", "bmat"), gene.name = NULL,
-  gene.loci = NULL, do.par = FALSE, num.cores = 1)
+predictGenePeakPair(
+  obj,
+  input.mat = c("pmat", "bmat"),
+  gene.name = NULL,
+  gene.loci = NULL,
+  do.par = FALSE,
+  num.cores = 1
+)
 }
 \arguments{
 \item{obj}{A snap object.}
