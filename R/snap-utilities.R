@@ -496,6 +496,7 @@ createSnap.default <- function(file, sample, description=NULL, do.par=FALSE, num
 #' will be added to snap object.
 #' @param do.par A logical variable indicates whether use multiple processors [FALSE].
 #' @param num.cores Number of processors to use [1].
+#' @param checkSnap bool, if TRUE check the corresponding snap files, default TRUE
 #' 
 #' @examples
 #' file.name = system.file("extdata", "demo.snap", package = "SnapATAC");
@@ -510,12 +511,13 @@ createSnap.default <- function(file, sample, description=NULL, do.par=FALSE, num
 #' @importFrom parallel mclapply
 #' @importFrom methods is
 #' @export
-addBmatToSnap <- function(obj, bin.size, do.par, num.cores){
+addBmatToSnap <- function(obj, bin.size, do.par, num.cores, checkSnap = TRUE){
   UseMethod("addBmatToSnap", obj);
 }
 
 #' @export
-addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1){	
+addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1,
+                                  checkSnap = TRUE){	
 	# close the previously opened H5 file
 	if(exists('h5closeAll', where='package:rhdf5', mode='function')){
 		rhdf5::h5closeAll();		
@@ -537,28 +539,33 @@ addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1)
 	
 	fileList = as.list(unique(obj@file));
 
-	# check if snap files exist
-	if(any(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)){
-		idx = which(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)
-		print("error: these files does not exist")
-		print(fileList[idx])
-		stop()
-	}
-	
-	# check if files are all snap files
-  if(do.par) {
-    isSnaps <- unlist(mclapply(fileList, isSnapFile, mc.cores = num.cores))
-  } else {
-    isSnaps <- unlist(lapply(fileList, isSnapFile))
+  if(checkSnap) {
+    # check if snap files exist
+    message("check if all the snap files exist.")
+    if(any(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)){
+      idx = which(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)
+      print("error: these files does not exist")
+      print(fileList[idx])
+      stop()
+    }
+    
+    # check if files are all snap files
+    message("check is all the files are snap files.")
+    if(do.par) {
+      isSnaps <- unlist(mclapply(fileList, isSnapFile, mc.cores = num.cores))
+    } else {
+      isSnaps <- unlist(lapply(fileList, isSnapFile))
+    }
+    if(any(isSnaps == FALSE)){
+      idx <- which(isSnaps == FALSE)
+      print("error: these files are not snap file")
+      print(fileList[idx])
+      stop()
+    }
   }
-	if(any(isSnaps == FALSE)){
-    idx <- which(isSnaps == FALSE)
-		print("error: these files are not snap file")
-		print(fileList[idx])
-		stop()
-	}
 	
 	# check if AM session exist
+  message("check if bmat session named AM exist.")
   if(do.par) {
     hasAMs <- unlist(mclapply(fileList, function(x){"AM" %in% h5ls(x, recursive=1)$name},
                               mc.cores = num.cores))
@@ -573,6 +580,7 @@ addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1)
 		stop()
 	}
 
+  message("check if the bin.size exist.")
   if (do.par) {
     hasBinsize <- unlist(mclapply(fileList, function(x) {(bin.size %in% showBinSizes(x))},
                                   mc.cores = num.cores))
@@ -587,6 +595,7 @@ addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1)
 	}
 
 	# check if bins match
+  message("check if all the snaps have the same bins.")
   if (do.par) {
     bin.list <- mclapply(fileList, function(x) {readBins(x, bin.size = bin.size)},
                          mc.cores = num.cores)
