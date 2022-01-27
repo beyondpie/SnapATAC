@@ -546,32 +546,53 @@ addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1)
 	}
 	
 	# check if files are all snap files
-	if(any(do.call(c, lapply(fileList, function(x){isSnapFile(x)})) == FALSE)){
-		idx = which(do.call(c, lapply(fileList, function(x){isSnapFile(x)})) == FALSE)
+  if(do.par) {
+    isSnaps <- unlist(mclapply(fileList, isSnapFile, mc.cores = num.cores))
+  } else {
+    isSnaps <- unlist(lapply(fileList, isSnapFile))
+  }
+	if(any(isSnaps == FALSE)){
+    idx <- which(isSnaps == FALSE)
 		print("error: these files are not snap file")
 		print(fileList[idx])
 		stop()
 	}
 	
-	# check if BM session exist
-	if(any(do.call(c, lapply(fileList, function(x){ "AM" %in% h5ls(x, recursive=1)$name  })) == FALSE)){
-		idx = which(do.call(c, lapply(fileList, function(x){ "AM" %in% h5ls(x, recursive=1)$name  })) == FALSE)
+	# check if AM session exist
+  if(do.par) {
+    hasAMs <- unlist(mclapply(fileList, function(x){"AM" %in% h5ls(x, recursive=1)$name},
+                              mc.cores = num.cores))
+  } else {
+    hasAMs <- unlist(lapply(fileList, function(x) {"AM" %in% h5ls(x, recursive=1)$name}))
+  }
+  
+	if(any(hasAMs == FALSE)){
+    idx <- which(hasAMs == FALSE)
 		print("error: the following nsap files do not contain AM session")
 		print(fileList[idx])
 		stop()
 	}
-	
-	if(any(do.call(c, lapply(fileList, function(x){(bin.size %in% showBinSizes(x))})) == FALSE)){
-		idx = which(do.call(c, lapply(fileList, function(x){(bin.size %in% showBinSizes(x))})) == FALSE)
+
+  if (do.par) {
+    hasBinsize <- unlist(mclapply(fileList, function(x) {(bin.size %in% showBinSizes(x))},
+                                  mc.cores = num.cores))
+  } else {
+    hasBinsize <- unlist(lapply(fileList, function(x) {(bin.size %in% showBinSizes(x))}))
+  }
+	if(any(hasBinsize == FALSE)){
+		idx = which(hasBinsize == FALSE)
 		print("error: chosen bin size does not exist in the following snap files")
 		print(fileList[idx])
 		stop()
 	}
 
 	# check if bins match
-	bin.list = lapply(fileList, function(x){
-		readBins(x, bin.size=bin.size)
-	})
+  if (do.par) {
+    bin.list <- mclapply(fileList, function(x) {readBins(x, bin.size = bin.size)},
+                         mc.cores = num.cores)
+  } else{
+    bin.list <- lapply(fileList, function(x){readBins(x, bin.size=bin.size)})
+  }
 	
 	if(!all(sapply(bin.list, FUN = identical, bin.list[[1]]))){
 		stop("bins does not match between snap files, please regenerate the cell-by-bin matrix by snaptools")
@@ -580,15 +601,15 @@ addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1)
 	# read the snap object
 	message("Epoch: reading cell-bin count matrix session ...");
 	if(do.par){
-		obj.ls = mclapply(fileList, function(file){
+		obj.ls <- mclapply(fileList, function(file){
 			idx = which(obj@file == file)
-			addBmatToSnapSingle(obj[idx,], file, bin.size=bin.size);
-		}, mc.cores=num.cores);		
+			addBmatToSnapSingle(obj[idx,], file, bin.size=bin.size, checkSnap = FALSE)
+		}, mc.cores=num.cores)		
 	}else{
-		obj.ls = lapply(fileList, function(file){
-			idx = which(obj@file == file)
-			addBmatToSnapSingle(obj[idx,], file, bin.size=bin.size);
-		});		
+		obj.ls <- lapply(fileList, function(file){
+			idx <- which(obj@file == file)
+			addBmatToSnapSingle(obj[idx,], file, bin.size=bin.size, checkSnap = FALSE)
+		})		
 	}
 	
 	# combine
@@ -1909,7 +1930,7 @@ readPeaks <- function(file){
 
 #' @importFrom methods is
 #' @import Matrix
-addBmatToSnapSingle <- function(obj, file, bin.size=5000){	
+addBmatToSnapSingle <- function(obj, file, bin.size=5000, checkSnap=FALSE){	
 	# close the previously opened H5 file
 	if(exists('h5closeAll', where='package:rhdf5', mode='function')){
 		rhdf5::h5closeAll();		
@@ -1925,10 +1946,14 @@ addBmatToSnapSingle <- function(obj, file, bin.size=5000){
 		}
 	}
 
-	if(!file.exists(file)){stop(paste("Error @addBmat: ", file, " does not exist!", sep=""))};
-	if(!isSnapFile(file)){stop(paste("Error @addBmat: ", file, " is not a snap-format file!", sep=""))};
-	if(!(bin.size %in% showBinSizes(file))){stop(paste("Error @addBmat: bin.size ", bin.size, " does not exist in ", file, "\n", sep=""))};
-	obj@bmat = Matrix(0,0,0);
+  if (checkSnap) {
+    if(!file.exists(file)){stop(paste("Error @addBmat: ", file, " does not exist!", sep=""))}
+    if(!isSnapFile(file)){stop(paste("Error @addBmat: ", file, " is not a snap-format file!", sep=""))}
+    if(!(bin.size %in% showBinSizes(file))){
+      stop(paste("Error @addBmat: bin.size ",
+                 bin.size, " does not exist in ", file, "\n", sep=""))}
+  }
+	obj@bmat <- Matrix(0,0,0)
 	############################################################################
 	barcode = as.character(tryCatch(barcode <- h5read(file, '/BD/name'), error = function(e) {print(paste("Warning @addBmat: 'BD/name' not found in ",file)); return(vector(mode="character", length=0))}));	
 
