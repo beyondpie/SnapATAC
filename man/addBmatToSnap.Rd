@@ -4,7 +4,7 @@
 \alias{addBmatToSnap}
 \title{Add cell-by-bin matrix}
 \usage{
-addBmatToSnap(obj, bin.size, do.par, num.cores)
+addBmatToSnap(obj, bin.size, do.par, num.cores, checkSnap = TRUE)
 }
 \arguments{
 \item{obj}{A snap object to add cell-by-bin matrix.}
@@ -15,6 +15,8 @@ will be added to snap object.}
 \item{do.par}{A logical variable indicates whether use multiple processors [FALSE].}
 
 \item{num.cores}{Number of processors to use [1].}
+
+\item{checkSnap}{bool, if TRUE check the corresponding snap files, default TRUE}
 }
 \value{
 Return a snap object
