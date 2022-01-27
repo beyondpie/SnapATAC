@@ -595,7 +595,7 @@ addBmatToSnap.default <- function(obj, bin.size=5000, do.par=FALSE, num.cores=1)
 	if((x=length(obj.ls)) == 1L){
 		res = obj.ls[[1]]
 	}else{
-		res = Reduce(snapRbind, obj.ls);		
+		res <- snapListRbind(obj.ls)
 	}
 	obj@feature = res@feature;
 	obj@bmat = res@bmat;
