@@ -479,7 +479,7 @@ createSnap.default <- function(file, sample, description=NULL, do.par=FALSE, num
 		});		
 	}
 	
-	obj = Reduce(snapRbind, obj.ls);
+  obj <- snapListRbind(snapList = obj.ls)
 	rm(obj.ls);
 	gc();
 	obj@des = description;
