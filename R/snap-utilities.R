@@ -451,22 +451,28 @@ createSnap.default <- function(file, sample, description=NULL, do.par=FALSE, num
 	}else{
 		description=character()
 	}
-	
-	# check if snap files exist
-	if(any(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)){
-		idx = which(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)
-		print("error: these files does not exist")
-		print(fileList[idx])
-		stop()
-	}
-	
-	# check if files are all snap files
-	if(any(do.call(c, lapply(fileList, function(x){isSnapFile(x)})) == FALSE)){
-		idx = which(do.call(c, lapply(fileList, function(x){isSnapFile(x)})) == FALSE)
-		print("error: these files are not snap file")
-		print(fileList[idx])
-		stop()
-	}
+  # check if snap files exist
+  message("check if all the snap files exist.")
+  if(any(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)){
+    idx = which(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)
+    print("error: these files does not exist")
+    print(fileList[idx])
+    stop()
+  }
+
+  # check if files are all snap files
+  message("check is all the files are snap files.")
+  if(do.par) {
+    isSnaps <- unlist(mclapply(fileList, isSnapFile, mc.cores = num.cores))
+  } else {
+    isSnaps <- unlist(lapply(fileList, isSnapFile))
+  }
+  if(any(isSnaps == FALSE)){
+    idx <- which(isSnaps == FALSE)
+    print("error: these files are not snap file")
+    print(fileList[idx])
+    stop()
+  }
 	
 	message("Epoch: reading the barcode session ...");
 	if(do.par){
