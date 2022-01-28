@@ -109,6 +109,9 @@ eig_decomp <- function(M, n_eigs, sym = isSymmetric(M), method = "arpack") {
 	n <- nrow(M)
 	f <- function(x, A = NULL) as.matrix(A %*% x)
 	wh <- if (sym) 'LA' else 'LM'
+  if(!sym) {
+    warning("Input matrix is not symmetric, double check if this is true.")
+  }
 	#constraints: n >= ncv > nev
   if (method == "arpack") {
     message("Use igraph::arpack for eig decomposition.")
@@ -116,7 +119,11 @@ eig_decomp <- function(M, n_eigs, sym = isSymmetric(M), method = "arpack") {
       which = wh, n = n, ncv = min(n, 4*n_eigs), nev = n_eigs + 1))
   } else {
     message("Use RSpectra::eigs for eig decomposition.")
-    ar <- RSpectra::eigs(A = M, k = n_eigs + 1, which = wh)
+    if (sym) {
+      ar <- RSpectra::eigs_sym(A = M, k = n_eigs + 1, which = "LA")
+    } else {
+      ar <- RSpectra::eigs(A = M, k = n_eigs + 1, which = "LM")
+    }
   }
 	if (!sym) {
 		ar$vectors <- Re(ar$vectors)
