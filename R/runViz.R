@@ -134,7 +134,7 @@ runViz.default <- function(
     message("Use uwot package to run umap.")
     set.seed(seed.use)
     obj@ump <- uwot::umap(X = data.use, a = 1.8956, b = 0.8006,
-                          init = "spectral", n_threads = num.cores, ...)
+                          init = "spectral", n_threads = num.cores)
     colnames(obj@umap) <- c("umap-1", "umap-2")
   }
 	return(obj);
