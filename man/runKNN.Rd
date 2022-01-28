@@ -13,7 +13,8 @@ runKNN(
   save.knn,
   filename,
   snn,
-  snn.prune
+  snn.prune,
+  method
 )
 }
 \arguments{
@@ -41,6 +42,9 @@ compatible with runCluster.}
 computing the neighborhood overlap. Any edges with values less than or 
 equal to this will be set to 0 and removed from the SNN graph. Essentially 
 sets the strigency of pruning (0 --- no pruning, 1 --- prune everything).}
+
+\item{method}{character, "RANN" or "Annoy", the later is faster but approximated
+method.}
 }
 \value{
 Returns the object with object@kmat filled
