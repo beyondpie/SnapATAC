@@ -12,6 +12,8 @@ runDiffusionMaps(obj, input.mat = c("bmat", "pmat"), num.eigs = 20)
 \item{input.mat}{Input matrix c("bmat", "pmat").}
 
 \item{num.eigs}{Number of eigenvectors to be computed [20].}
+
+\item{method}{character, "arpack" or "RSpectra" for eig decomposition, default is arpack}
 }
 \description{
 This function takes a snap obj as input and runs diffusion maps 

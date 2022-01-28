@@ -98,21 +98,34 @@ runJaccard2 <- function(
 	return(obj1);
 }
 
-#' @importFrom igraph arpack
-eig_decomp <- function(M, n_eigs, sym = isSymmetric(M)) {
+#' Eig decomposition.
+#' @param M Matrix
+#' @param n_eighs integer
+#' @param sym bool, is M symmetric, default is isSymmetric(M)
+#' @param method character, "arpack" or "RSpectra" for decomposition, default is arpack
+#' 
+#' @export
+eig_decomp <- function(M, n_eigs, sym = isSymmetric(M), method = "arpack") {
 	n <- nrow(M)
 	f <- function(x, A = NULL) as.matrix(A %*% x)
 	wh <- if (sym) 'LA' else 'LM'
 	#constraints: n >= ncv > nev
-	ar <- igraph::arpack(f, extra = M, sym = sym, options = list(
-		which = wh, n = n, ncv = min(n, 4*n_eigs), nev = n_eigs + 1))
+  if (method == "arpack") {
+    message("Use igraph::arpack for eig decomposition.")
+    ar <- igraph::arpack(f, extra = M, sym = sym, options = list(
+      which = wh, n = n, ncv = min(n, 4*n_eigs), nev = n_eigs + 1))
+  } else {
+    message("Use RSpectra::eigs for eig decomposition.")
+    ar <- RSpectra::eigs(A = M, k = n_eigs + 1, which = wh)
+  }
 	if (!sym) {
 		ar$vectors <- Re(ar$vectors)
 		ar$values  <- Re(ar$values)
 	}
-	if (length(dim(ar$vectors)) == 0L)
+	if (length(dim(ar$vectors)) == 0L) {
 		ar$vectors <- matrix(ar$vectors, ncol = 1L)
-	ar
+  }
+	return(ar)
 }
 
 .normOVE <- function(p1, p2){
@@ -163,17 +176,17 @@ normJaccard <- function(obj, beta0, beta1, beta2){
 	return(obj);
 }
 
-runEigDecomp <- function(obj, num.eigs){
-	nmat = obj@jmat@nmat;
-	diag(nmat) = 0;
-	norm_p1 = nmat
-	d_norm1 <- Matrix::rowSums(norm_p1);
-	d_rot1 <- Diagonal(x = d_norm1 ^ -.5);
-	transitions <- as.matrix(d_rot1 %*% norm_p1 %*% d_rot1);
-	diag(transitions) = 0
-	eig_transitions = eig_decomp(transitions, num.eigs)
-	obj@smat@dmat = eig_transitions$vectors[,2:(num.eigs+1)];
-	obj@smat@sdev = eig_transitions$value[2:(num.eigs+1)];
+runEigDecomp <- function(obj, num.eigs, method = "arpack"){
+	nmat <- obj@jmat@nmat
+	diag(nmat) <- 0
+	norm_p1 <- nmat
+	d_norm1 <- Matrix::rowSums(norm_p1)
+	d_rot1 <- Diagonal(x = d_norm1 ^ -.5)
+	transitions <- as.matrix(d_rot1 %*% norm_p1 %*% d_rot1)
+	diag(transitions) <- 0
+	eig_transitions <- eig_decomp(transitions, num.eigs, method = method)
+	obj@smat@dmat <- eig_transitions$vectors[,2:(num.eigs+1)]
+	obj@smat@sdev <- eig_transitions$value[2:(num.eigs+1)]
 	return(obj)
 }
 

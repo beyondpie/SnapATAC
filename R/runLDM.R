@@ -14,6 +14,7 @@
 #' @param obj A snap obj
 #' @param input.mat Input matrix c("bmat", "pmat").
 #' @param num.eigs Number of eigenvectors to be computed [20].
+#' @param method character, "arpack" or "RSpectra" for eig decomposition, default is arpack
 #'
 #' @examples
 #' data(demo.sp);
@@ -85,7 +86,7 @@ runDiffusionMaps <- function(
 	obj@jmat@nmat[obj@jmat@nmat > nmat.cutoff] = nmat.cutoff;
 	
 	message("Epoch: computing eigen decomposition ...");
-	obj = runEigDecomp(obj, num.eigs);
+	obj = runEigDecomp(obj, num.eigs, method = method);
 
 	obj@smat@method = "DiffusionMaps";
 	message("Epoch: Done");
