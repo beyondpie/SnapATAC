@@ -29,7 +29,8 @@
 runDiffusionMaps <- function(
 	obj,
 	input.mat=c("bmat", "pmat"), 
-	num.eigs=20
+	num.eigs=20,
+  method = "arpack"
 ){
 	nmat.outlier = 0.999
 	message("Epoch: checking the inputs ...");
