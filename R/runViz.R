@@ -24,7 +24,8 @@
 #' @importFrom utils installed.packages
 #' @export
 
-runViz<- function(obj, dims, eigs.dims, method, fast_tsne_path, Y.init, seed.use, num.cores, tmp.folder, ...) {
+runViz<- function(obj, dims, eigs.dims, method, fast_tsne_path, Y.init, seed.use,
+                  num.cores, tmp.folder, ...) {
   UseMethod("runViz", obj);
 }
 
@@ -33,7 +34,7 @@ runViz.default <- function(
 	obj, 
 	dims=2,
 	eigs.dims=NULL, 
-	method=c("Rtsne", "umap", "fast_tsne"), 
+	method=c("Rtsne", "umap", "fast_tsne", "uwot"), 
 	fast_tsne_path = NULL, 
 	Y.init=NULL,
 	seed.use=10,
@@ -119,7 +120,8 @@ runViz.default <- function(
 			...
 			)$Y;
 		colnames(obj@tsne) = c("tsne-1", "tsne-2")
-	}else{
+	}else if (method == "umap"){
+    message("Use umap package to run umap.")
 		if (requireNamespace("umap", quietly = TRUE)) {
 				set.seed(seed.use);
 				obj@umap = umap::umap(data.use)$layout;
@@ -128,7 +130,13 @@ runViz.default <- function(
 		      stop("Please install umap - learn more at https://cran.r-project.org/web/packages/umap/index.html")
 		  }
 		  
-	}
+	} else {
+    message("Use uwot package to run umap.")
+    set.seed(seed.use)
+    obj@ump <- uwot::umap(X = data.use, a = 1.8956, b = 0.8006,
+                          init = "spectral", n_threads = num.cores, ...)
+    colnames(obj@umap) <- c("umap-1", "umap-2")
+  }
 	return(obj);
 }
 
