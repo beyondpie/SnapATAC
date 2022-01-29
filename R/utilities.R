@@ -222,3 +222,68 @@ runEigDecompExd <- function(obj1, obj2){
 	return(obj2);
 }
 
+
+#' Check if all the snap files exist.
+#' @param snapFiles list of string
+#' @return bool, TRUE if all of them exist; FALSE if not.
+#' @export
+checkSnapFilesExist <- function(snapFiles) {
+  fileList <- as.list(unique(snapFiles))
+  message("check if all the snap files exist.")
+  if(any(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)){
+    idx <- which(do.call(c, lapply(fileList, function(x){file.exists(x)})) == FALSE)
+    message(fileList[idx], " doest not exist.")
+    return(FALSE)
+  } else {
+    return(TRUE)
+  }
+}
+
+#' Check if all the files are snap files.
+#' @param snapFiles list of string
+#' @param do.par bool, if do in parallel, default is FALSE.
+#' @param num.cores integer, cores to be used, default is 1
+#' @return bool, TRUE if all of them are snap files; FALSE if no
+#' @export
+checkFilesSnapFiles <- function(snapFiles, do.par = FALSE, num.cores = 1) {
+  fileList <- as.list(unique(snapFiles))
+  message("check is all the files are snap files.")
+  if(do.par) {
+    isSnaps <- unlist(parallel::mclapply(fileList, isSnapFile, mc.cores = num.cores))
+  } else {
+    isSnaps <- unlist(lapply(fileList, isSnapFile))
+  }
+  if(any(isSnaps == FALSE)){
+    idx <- which(isSnaps == FALSE)
+    message(fileList[idx], " does not exist.")
+    return(FALSE)
+  } else {
+    return(TRUE)
+  }
+}
+
+#' Check if all snap files have a given session.
+#' @param snapFiles list of string
+#' @param session character
+#' @param do.par bool, if do in parallel, default is FALSE.
+#' @param num.cores integer, cores to be used, default is 1
+#' @return bool, TRUE if all snap files have the session; FALSE if no.
+#' @export
+checkSnapFileSession <- function(snapFiles, session, do.par = FALSE, num.cores = 1) {
+  fileList <- as.list(unique(snapFiles))
+  message("check if session ", session, " exist.")
+  if(do.par) {
+    hasAMs <- unlist(
+      parallel::mclapply(fileList,function(x){"AM" %in% rhdf5::h5ls(x, recursive=1)$name},
+                         mc.cores = num.cores))
+  } else {
+    hasAMs <- unlist(lapply(fileList, function(x) {"AM" %in% rhdf5::h5ls(x, recursive=1)$name}))
+  }
+	if(any(hasAMs == FALSE)){
+    idx <- which(hasAMs == FALSE)
+    message(fileList[idx], " do not have ", session, "session.")
+    return(FALSE)
+	} else {
+    return(TRUE)
+  }
+}
