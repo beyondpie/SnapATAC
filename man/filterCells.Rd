@@ -19,7 +19,7 @@ filterCells(obj, subset.names, low.thresholds, high.thresholds)
 Returns a snap object containing only the relevant subset of cells
 }
 \description{
-This function takes a snap object as input and filter cells based on given cutoffs. 
+This function takes a snap object as input and filter cells based on given cutoffs.
 We next identify the high-quality barcode based on the following metrices:
 }
 \details{
@@ -30,21 +30,20 @@ We next identify the high-quality barcode based on the following metrices:
 5) pair.ratio - properly paired ratio;
 6) umap.ratio - uniquely mapped ratio;
 
-Note we no longer use reads in peak ratio as a metric for cell selection mainly for two reasons. 
-Reads-in-peak ration is highly cell type specific. For instance, according to published single 
-cell ATAC-seq, human fibroblast (BJ) cells have significantly higher reads in peak ratio (40-60%) 
-versus 20-40% for GM12878 cells. Similarly, in mammalian brain, glia cells overall have very 
-different reads in peak ratio distribution compared to neuronal cells. We suspect this may reflect 
-the nucleus size or global chromatin accessibility. Second, pre-defined set of accessibility peaks 
+Note we no longer use reads in peak ratio as a metric for cell selection mainly for two reasons.
+Reads-in-peak ration is highly cell type specific. For instance, according to published single
+cell ATAC-seq, human fibroblast (BJ) cells have significantly higher reads in peak ratio (40-60%)
+versus 20-40% for GM12878 cells. Similarly, in mammalian brain, glia cells overall have very
+different reads in peak ratio distribution compared to neuronal cells. We suspect this may reflect
+the nucleus size or global chromatin accessibility. Second, pre-defined set of accessibility peaks
 are incomplete and biased to the dominant populations.
 }
 \examples{
-data(demo.sp);
+data(demo.sp)
 filterCells(
-obj=demo.sp, 
-subset.names=c("UMI"), 
-low.thresholds=c(10),
-high.thresholds=c(Inf)
-);
-
+  obj = demo.sp,
+  subset.names = c("UMI"),
+  low.thresholds = c(10),
+  high.thresholds = c(Inf)
+)
 }

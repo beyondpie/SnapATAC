@@ -13,6 +13,5 @@ An empty snap object
 This function creates an empty snap object
 }
 \examples{
-x.sp = newSnap();
-
+x.sp <- newSnap()
 }

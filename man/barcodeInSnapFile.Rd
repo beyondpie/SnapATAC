@@ -12,16 +12,15 @@ barcodeInSnapFile(barcode, file)
 \item{file}{A snap format file.}
 }
 \value{
-Return an array of logical variable indicates whether the 
+Return an array of logical variable indicates whether the
 barcode exists in snap file.
 }
 \description{
-This function takes an array of barcodes and a snap-format file as input 
+This function takes an array of barcodes and a snap-format file as input
 and check whether selected barcodes exist in the snap file.
 }
 \examples{
-file.name = system.file("extdata", "demo.snap", package = "SnapATAC");
-barcodes = c("ACATTGGCAACCAGGTTGCTGGTATTGGAAGT", "ACATTGGCAAGAGGCAACAAGGATATCTGAGT");
-barcodeInSnapFile(barcodes, file.name);
-
+file.name <- system.file("extdata", "demo.snap", package = "SnapATAC")
+barcodes <- c("ACATTGGCAACCAGGTTGCTGGTATTGGAAGT", "ACATTGGCAAGAGGCAACAAGGATATCTGAGT")
+barcodeInSnapFile(barcodes, file.name)
 }

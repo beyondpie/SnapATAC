@@ -22,15 +22,14 @@ Returns a snap obj
 This function takes a snap obj as input and perform feature selection in the following manner:
 1) calculate coverage of each genomic bin/feature;
 2) log scale the coverage by log10(count + 1);
-3) the log-nromal distribution is then converted into zscore; 
+3) the log-nromal distribution is then converted into zscore;
 4) bins with zscore beyond [low.threshold, high.threshold] are filtered;
 }
 \examples{
-data(demo.sp);
+data(demo.sp)
 filterBins(
-obj=demo.sp, 
-low.threshold=-2,
-high.threshold=2
-);
-
+  obj = demo.sp,
+  low.threshold = -2,
+  high.threshold = 2
+)
 }

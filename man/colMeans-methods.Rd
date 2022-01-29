@@ -18,9 +18,8 @@
 This function takes a snap object and returns the column means of its count matrix.
 }
 \examples{
-data(demo.sp);
-a = colMeans(demo.sp, mat="bmat");
-b = colMeans(demo.sp, mat="pmat");
-d = colMeans(demo.sp, mat="gmat");
-
+data(demo.sp)
+a <- colMeans(demo.sp, mat = "bmat")
+b <- colMeans(demo.sp, mat = "pmat")
+d <- colMeans(demo.sp, mat = "gmat")
 }

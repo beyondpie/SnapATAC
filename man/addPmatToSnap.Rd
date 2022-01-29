@@ -14,13 +14,12 @@ addPmatToSnap(obj, do.par, num.cores)
 \item{num.cores}{Number of processors to use [1].}
 }
 \description{
-This function takes a snap object as input and add the 
+This function takes a snap object as input and add the
 cell-by-peak matrix to the existing snap object.
 }
 \examples{
-file.name = system.file("extdata", "demo.snap", package = "SnapATAC");
-demo.sp = createSnap(file.name, sample="demo", do.par=FALSE);
-showBinSizes(file.name);
-demo.sp = addPmatToSnap(demo.sp, do.par=FALSE);
-
+file.name <- system.file("extdata", "demo.snap", package = "SnapATAC")
+demo.sp <- createSnap(file.name, sample = "demo", do.par = FALSE)
+showBinSizes(file.name)
+demo.sp <- addPmatToSnap(demo.sp, do.par = FALSE)
 }

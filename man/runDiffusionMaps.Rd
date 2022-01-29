@@ -4,7 +4,12 @@
 \alias{runDiffusionMaps}
 \title{Dimentionality Reduction by Diffusion Maps Algorithm}
 \usage{
-runDiffusionMaps(obj, input.mat = c("bmat", "pmat"), num.eigs = 20)
+runDiffusionMaps(
+  obj,
+  input.mat = c("bmat", "pmat"),
+  num.eigs = 20,
+  method = "arpack"
+)
 }
 \arguments{
 \item{obj}{A snap obj}

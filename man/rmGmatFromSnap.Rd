@@ -13,12 +13,11 @@ rmGmatFromSnap(obj)
 Return a snap object without cell-by-peak matrix
 }
 \description{
-This function takes a snap object as input and removes the cell-by-gene 
-matrix in the existing snap object. Report error when cell-by-gene matrix 
+This function takes a snap object as input and removes the cell-by-gene
+matrix in the existing snap object. Report error when cell-by-gene matrix
 is empty.
 }
 \examples{
 data(demo.sp)
 rmPmatFromSnap(demo.sp)
-
 }

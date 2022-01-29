@@ -21,8 +21,8 @@
 This function takes a snap object and returns the subset of snap object.
 }
 \examples{
-data(demo.sp);
-demo.sp[1:10,];
-demo.sp[,1:10,mat="bmat"];
-demo.sp[,1:10,mat="pmat"];
+data(demo.sp)
+demo.sp[1:10, ]
+demo.sp[, 1:10, mat = "bmat"]
+demo.sp[, 1:10, mat = "pmat"]
 }

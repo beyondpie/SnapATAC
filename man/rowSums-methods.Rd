@@ -18,9 +18,8 @@
 This function takes a snap object and returns the row sums of its count matrix.
 }
 \examples{
-data(demo.sp);
-a = rowSums(demo.sp, mat="bmat");
-b = rowSums(demo.sp, mat="pmat");
-d = rowSums(demo.sp, mat="gmat");
-
+data(demo.sp)
+a <- rowSums(demo.sp, mat = "bmat")
+b <- rowSums(demo.sp, mat = "pmat")
+d <- rowSums(demo.sp, mat = "gmat")
 }

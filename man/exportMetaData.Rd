@@ -17,6 +17,6 @@ exportMetaData(obj, file, slot.names)
 This function takes a snap object as input and export its barcode and corresponding attributes
 }
 \examples{
-data(demo.sp);
-exportMetaData(demo.sp, file="demo.metadata.txt", slot.names=c("barcode", "tsne"));
+data(demo.sp)
+exportMetaData(demo.sp, file = "demo.metadata.txt", slot.names = c("barcode", "tsne"))
 }

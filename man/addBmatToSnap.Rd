@@ -9,7 +9,7 @@ addBmatToSnap(obj, bin.size, do.par, num.cores, checkSnap = TRUE)
 \arguments{
 \item{obj}{A snap object to add cell-by-bin matrix.}
 
-\item{bin.size}{Cell-by-bin matrix with bin size of bin.size 
+\item{bin.size}{Cell-by-bin matrix with bin size of bin.size
 will be added to snap object.}
 
 \item{do.par}{A logical variable indicates whether use multiple processors [FALSE].}
@@ -22,13 +22,12 @@ will be added to snap object.}
 Return a snap object
 }
 \description{
-This function takes a snap object as input and add the cell-by-bin 
+This function takes a snap object as input and add the cell-by-bin
 matrix to the existing snap object.
 }
 \examples{
-file.name = system.file("extdata", "demo.snap", package = "SnapATAC");
-demo.sp = createSnap(file.name, sample="demo", do.par=FALSE);
-showBinSizes(file.name);
-demo.sp = addBmatToSnap(demo.sp, bin.size=100000, do.par=FALSE);
-
+file.name <- system.file("extdata", "demo.snap", package = "SnapATAC")
+demo.sp <- createSnap(file.name, sample = "demo", do.par = FALSE)
+showBinSizes(file.name)
+demo.sp <- addBmatToSnap(demo.sp, bin.size = 100000, do.par = FALSE)
 }

@@ -14,6 +14,6 @@
 This function takes a snap object and returns number of cells
 }
 \examples{
-data(demo.sp);
-nrow(demo.sp);
+data(demo.sp)
+nrow(demo.sp)
 }

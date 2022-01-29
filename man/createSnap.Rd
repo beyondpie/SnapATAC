@@ -25,7 +25,6 @@ This function takes a snap-format file as input and create
 a snap object.
 }
 \examples{
-file.name = system.file("extdata", "demo.snap", package = "SnapATAC");
-demo.sp = createSnap(file.name, sample="demo", do.par=FALSE);
-
+file.name <- system.file("extdata", "demo.snap", package = "SnapATAC")
+demo.sp <- createSnap(file.name, sample = "demo", do.par = FALSE)
 }

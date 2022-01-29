@@ -4,7 +4,7 @@
 \alias{addGmatToSnap}
 \title{Add cell-by-gene matrix}
 \usage{
-addGmatToSnap(obj, do.par, num.cores)
+addGmatToSnap(obj, do.par, num.cores, checkSnap = TRUE)
 }
 \arguments{
 \item{obj}{A snap object to add cell-by-bin matrix.}
@@ -12,17 +12,18 @@ addGmatToSnap(obj, do.par, num.cores)
 \item{do.par}{A logical variable indicates whether to use multiple processors [FALSE].}
 
 \item{num.cores}{Number of processors to use.}
+
+\item{checkSnap}{bool, if TRUE check the corresponding snap files, default TRUE}
 }
 \value{
 Return a snap object
 }
 \description{
-This function takes a snap object as input and add the cell-by-gene 
+This function takes a snap object as input and add the cell-by-gene
 matrix to the existing snap object.
 }
 \examples{
-file.name = system.file("extdata", "demo.snap", package = "SnapATAC");
-demo.sp = createSnap(file.name, sample="demo", do.par=FALSE);
-demo.sp = addGmatToSnap(demo.sp, do.par=FALSE);
-
+file.name <- system.file("extdata", "demo.snap", package = "SnapATAC")
+demo.sp <- createSnap(file.name, sample = "demo", do.par = FALSE)
+demo.sp <- addGmatToSnap(demo.sp, do.par = FALSE)
 }

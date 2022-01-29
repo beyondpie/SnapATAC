@@ -13,11 +13,10 @@ showBinSizes(file)
 integer vector. A vector of integers indicating the bin sizes
 }
 \description{
-This function takes a snap-format file name as input and check the bin 
+This function takes a snap-format file name as input and check the bin
 sizes or resolutions have been generated for count matrix
 }
 \examples{
-file.name = system.file("extdata", "demo.snap", package = "SnapATAC");
-showBinSizes(file.name);
-
+file.name <- system.file("extdata", "demo.snap", package = "SnapATAC")
+showBinSizes(file.name)
 }

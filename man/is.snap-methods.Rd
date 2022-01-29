@@ -16,6 +16,6 @@ is.snap(obj)
 This function takes any object as input and check if it is a snap object
 }
 \examples{
-data(demo.sp);
-is.snap(demo.sp);
+data(demo.sp)
+is.snap(demo.sp)
 }
