@@ -274,10 +274,10 @@ checkSnapFileSession <- function(snapFiles, session, do.par = FALSE, num.cores =
   message("check if session ", session, " exist.")
   if(do.par) {
     hasAMs <- unlist(
-      parallel::mclapply(fileList,function(x){"AM" %in% rhdf5::h5ls(x, recursive=1)$name},
+      parallel::mclapply(fileList,function(x){session %in% rhdf5::h5ls(x, recursive=1)$name},
                          mc.cores = num.cores))
   } else {
-    hasAMs <- unlist(lapply(fileList, function(x) {"AM" %in% rhdf5::h5ls(x, recursive=1)$name}))
+    hasAMs <- unlist(lapply(fileList, function(x) {session %in% rhdf5::h5ls(x, recursive=1)$name}))
   }
 	if(any(hasAMs == FALSE)){
     idx <- which(hasAMs == FALSE)
