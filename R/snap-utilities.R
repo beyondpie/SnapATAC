@@ -1562,7 +1562,7 @@ snapListRbind <- function(snapList) {
   peak <- snapList[[1]]@peak
 
   ## merge matrix
-  messge("Merge matrix.")
+  message("Merge matrix.")
   mergeMatrix <- function(snapList, slotName = "bmat") {
     bmatList <- lapply(snapList, function(s) {
       slot(s, slotName)
