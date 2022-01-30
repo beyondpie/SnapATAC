@@ -25,6 +25,7 @@ runMagic <- function(
 	ncell = nrow(obj);
 	
 	# 2. check if input matrix exists
+  message("Epoch: checking the matrix if it's there ...")
 	input.mat = match.arg(input.mat);	
 	if(input.mat == "bmat"){
 		data.use = obj@bmat;
@@ -50,12 +51,14 @@ runMagic <- function(
 		
 	
 	# 3. check if the KNN graph exists
+  message("Epoch: checking if KNN graph exists ...")
 	A = obj@graph@mat;
 	if((x=nrow(A)) != ncell){
 		stop("affnity graph is empty, runKNN first!")
 	}
 	
 	# 4. smooth
+  message("Epoch: smoothing ...")
 	A = A + t(A);
 	A = A / Matrix::rowSums(A);
 	step.size = 3;
