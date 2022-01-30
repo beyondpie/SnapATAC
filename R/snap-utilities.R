@@ -862,6 +862,7 @@ addGmatToSnap.default <- function(obj, do.par = FALSE, num.cores = 1, checkSnap 
   }
 
   # combine
+  message("Epoch: combine all the snap object.")
   if ((x <- length(obj.ls)) == 1L) {
     res <- obj.ls[[1]]
   } else {
