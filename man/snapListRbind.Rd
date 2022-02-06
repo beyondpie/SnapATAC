@@ -4,10 +4,12 @@
 \alias{snapListRbind}
 \title{Combine snap objects}
 \usage{
-snapListRbind(snapList)
+snapListRbind(snapList, checkSnap = TRUE)
 }
 \arguments{
 \item{snapList}{List of snap objects}
+
+\item{checkSnap}{bool, check all the snaps, default is TRUE}
 }
 \value{
 a combined snap object
