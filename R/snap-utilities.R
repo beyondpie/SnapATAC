@@ -1513,7 +1513,7 @@ snapListRbind <- function(snapList, checkSnap = TRUE) {
   }
   message("Check if any of the object have repeat barcodes.")
   barcodes <- lapply(snapList, function(snap) {
-    return(paste(snap@file, snap@barcode, sep = "."))
+    return(paste(snap@sample, snap@barcode, sep = "."))
   })
   nUnique <- length(unique(unlist(barcodes)))
   nAll <- Reduce(sum, Map(length, barcodes))
