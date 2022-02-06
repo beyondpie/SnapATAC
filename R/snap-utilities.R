@@ -655,7 +655,7 @@ addBmatToSnap.default <- function(obj, bin.size = 5000, do.par = FALSE, num.core
   if ((x <- length(obj.ls)) == 1L) {
     res <- obj.ls[[1]]
   } else {
-    res <- snapListRbind(obj.ls)
+    res <- snapListRbind(obj.ls, checkSnap = FALSE)
   }
   obj@feature <- res@feature
   obj@bmat <- res@bmat
@@ -1498,14 +1498,17 @@ snapRbind <- function(obj1, obj2) {
 #' They are identical.
 #'
 #' @param snapList List of snap objects
+#' @param checkSnap bool, check all the snaps, default is TRUE
 #' @return a combined snap object
 #' @export
-snapListRbind <- function(snapList) {
-  message("Check if all the object are snap objects.")
-  for (i in length(snapList)) {
-    snap <- snapList[[i]]
-    if (!is.snap(snap)) {
-      stop(paste("Error: @snapListRbind:", i, "th snap is not a snap object!"))
+snapListRbind <- function(snapList, checkSnap = TRUE) {
+  if (checkSnap) {
+    message("Check if all the object are snap objects.")
+    for (i in 1:length(snapList)) {
+      snap <- snapList[[i]]
+      if (!is.snap(snap)) {
+        stop(paste("Error: @snapListRbind:", i, "th snap is not a snap object!"))
+      }
     }
   }
   message("Check if any of the object have repeat barcodes.")
