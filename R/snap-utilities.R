@@ -652,6 +652,7 @@ addBmatToSnap.default <- function(obj, bin.size = 5000, do.par = FALSE, num.core
   }
 
   # combine
+  message("Combine the bmat.")
   if ((x <- length(obj.ls)) == 1L) {
     res <- obj.ls[[1]]
   } else {
