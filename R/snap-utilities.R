@@ -2048,6 +2048,7 @@ readPeaks <- function(file) {
 
 #' @importFrom methods is
 #' @import Matrix
+#' @export
 addBmatToSnapSingle <- function(obj, file, bin.size = 5000, checkSnap = FALSE) {
   # close the previously opened H5 file
   if (exists("h5closeAll", where = "package:rhdf5", mode = "function")) {
@@ -2112,7 +2113,7 @@ addBmatToSnapSingle <- function(obj, file, bin.size = 5000, checkSnap = FALSE) {
   nBin <- length(obj@feature)
   M <- sparseMatrix(i = idx, j = idy, x = count, dims = c(nBarcode, nBin))
   rownames(M) <- barcode
-  obj@bmat <- M[match(obj@barcode, rownames(M)), ]
+  obj@bmat <- M[match(obj@barcode, rownames(M)), , drop = FALSE]
   rm(idx, idy, count, M)
   if (exists("h5closeAll", where = "package:rhdf5", mode = "function")) {
     rhdf5::h5closeAll()
@@ -2174,7 +2175,7 @@ addGmatToSnapSingle <- function(obj, file, checkSnap = FALSE) {
   nGene <- length(geneName)
   M <- sparseMatrix(i = idx, j = idy, x = count, dims = c(nBarcode, nGene))
   rownames(M) <- barcode
-  obj@gmat <- M[match(obj@barcode, rownames(M)), ]
+  obj@gmat <- M[match(obj@barcode, rownames(M)), , drop = FALSE]
   colnames(obj@gmat) <- geneName
   rm(idx, idy, count, M)
 
@@ -2252,7 +2253,7 @@ addPmatToSnapSingle <- function(obj, file) {
   nPeak <- length(obj@peak)
   M <- sparseMatrix(i = idx, j = idy, x = count, dims = c(nBarcode, nPeak))
   rownames(M) <- barcode
-  obj@pmat <- M[match(obj@barcode, rownames(M)), ]
+  obj@pmat <- M[match(obj@barcode, rownames(M)), , drop = FALSE]
   rm(idx, idy, count, M)
   if (exists("h5closeAll", where = "package:rhdf5", mode = "function")) {
     rhdf5::h5closeAll()
