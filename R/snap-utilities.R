@@ -243,6 +243,7 @@ setGeneric("is.snap", function(obj) standardGeneric("is.snap"))
 
 #' @rdname is.snap-methods
 #' @aliases is.snap,snap-method
+#' @export
 setMethod("is.snap", "snap", function(obj) {
   return(is(obj, "snap"))
 })
