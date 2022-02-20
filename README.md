@@ -15,7 +15,8 @@ Use conda to maintain the enviroment.
 ## SnapATAC depends on raster, which depends on terra, and terra needs gdal.
 conda install -c conda-forge libgdal
 ## install SnapATAC
-Rscript -e 'remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")'
+## Add INSTALL_opts --no-lock if having "failed to create lock directory".
+Rscript -e 'remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu", INSTALL_opts = c("--no-lock"))'
 ```
 
 ## Install on MacOS
@@ -32,7 +33,8 @@ install.packages(“terra”, type = "source", configure.args = "--with-gdal-con
 ## Maybe this also works: install.packages(“terra”, configure.args = "--with-proj-lib=/usr/local/lib/")
 
 ## Then we can install SnapATAC in R 
-remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")
+## Add INSTALL_opts --no-lock if having "failed to create lock directory".
+remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu", INSTALL_opts = c("--no-lock"))
 ```
 
 ## Original README:
