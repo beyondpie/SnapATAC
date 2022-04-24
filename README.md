@@ -31,7 +31,8 @@ brew install gdal proj sqlite
 ## In R
 install.packages(“terra”, type = "source", configure.args = "--with-gdal-config=/usr/local/bin/gdal-config --with-geos-config=/usr/local/bin/geos-config --with-proj-include=/usr/local/include/ --with-proj-lib=/usr/local/lib/ --with-proj-share=/usr/local/share/proj/")
 ## Maybe this also works: install.packages(“terra”, configure.args = "--with-proj-lib=/usr/local/lib/")
-
+install.packages("doSNOW")
+install.packages("plot3D")
 ## Then we can install SnapATAC in R 
 ## Add INSTALL_opts --no-lock if having "failed to create lock directory".
 remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu", INSTALL_opts = c("--no-lock"))

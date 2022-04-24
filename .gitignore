@@ -4,3 +4,5 @@
 .Rproj
 .idea
 test/*
+/.DS_Store
+/examples/.DS_Store
