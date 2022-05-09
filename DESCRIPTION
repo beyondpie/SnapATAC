@@ -37,7 +37,7 @@ Imports:
 	graphics, 
 	utils,
 	viridis,
-  doSNOT,
+  doSNOW,
   plot3D
 Suggests:
 	umap,
