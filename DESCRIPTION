@@ -3,7 +3,7 @@ Version: 2.5.1
 Date: 2022-05-08
 Title: Single Nucleus Analysis Package for ATAC-Seq
 Authors@R: c(
-person(given = "Songpeng", family = "Zu", email = "panshi.pie@gmail.com", role = c("aut"))
+person(given = "Songpeng", family = "Zu", email = "panshi.pie@gmail.com", role = c("aut")),
 person(given = "Rongxin", family = "Fang", email = "r4fang@gmail.com", role = c("aut", "cre"))
 )
 Description: A fast and accurate analysis toolkit for single cell ATAC-seq. Single cell ATAC-seq can resolve the heterogeneity of a complex tissue and reveal cell-type specific regulatory landscapes. However, the exceeding data sparsity has posed unique challenges for the data analysis. SnapATAC is an end-to-end bioinformatics pipeline for analyzing large-scale single cell ATAC-seq data which includes quality control, normalization, clustering analysis, differential analysis, motif inference and exploration of single cell ATAC-seq sequencing data. See Preissl S, Fang R, et al (2018) <doi:10.1038/s41593-018-0079-3> for more details.
