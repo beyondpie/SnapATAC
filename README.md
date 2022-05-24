@@ -1,7 +1,9 @@
 
 # SnapATAC Fix Version
 
-## Dependencies
+## snaptools
+* SnapATAC doesn't depend on snaptools. But the snap file that SnapATAC handles is generated snaptools.
+
 * Use python 2.7 version snaptools
 
 - Though we can install snaptools on python >= 3.0, snaptools have a binary string habit when encoding/decoding the chromosmes, which lead later mapping could be wrong if we ignore this.
