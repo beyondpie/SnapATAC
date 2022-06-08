@@ -1,4 +1,3 @@
-
 # SnapATAC Fix Version
 
 ## snaptools
@@ -38,6 +37,9 @@ install.packages("plot3D")
 ## Then we can install SnapATAC in R 
 ## Add INSTALL_opts --no-lock if having "failed to create lock directory".
 remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu", INSTALL_opts = c("--no-lock"))
+## After installation, please double check if `library(SnapATAC)` works. 
+## If facing errors of rhdf5 package loading (for example, cannot find some ld), 
+## reinstall rhdf5 based on the official website.
 ```
 
 ## Original README:
