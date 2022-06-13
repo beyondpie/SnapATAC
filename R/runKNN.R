@@ -43,7 +43,6 @@ NULL
 #' @import Matrix
 #' @return Returns the object with object@kmat filled
 #' @export
-
 runKNN <- function(obj, eigs.dims, weight.by.lambda, k, nn.eps, save.knn,
                    filename, snn, snn.prune, method) {
   UseMethod("runKNN", obj);
@@ -170,17 +169,16 @@ runKNN.default <- function(
 ####################
 # Run annoy
 #
-# @param data Data to build the index with
-# @param query A set of data to be queried against data
-# @param metric Distance metric; can be one of "euclidean", "cosine", "manhattan",
-# "hamming"
-# @param n.trees More trees gives higher precision when querying
-# @param k Number of neighbors
-# @param search.k During the query it will inspect up to search_k nodes which
-# gives you a run-time tradeoff between better accuracy and speed.
-# @param include.distance Include the corresponding distances
-# @param index optional index object, will be recomputed if not provided
-#
+#' @param data Data to build the index with
+#' @param query A set of data to be queried against data
+#' @param metric Distance metric; can be one of "euclidean", "cosine", "manhattan",
+#' "hamming"
+#' @param n.trees More trees gives higher precision when querying
+#' @param k Number of neighbors
+#' @param search.k During the query it will inspect up to search_k nodes which
+#' gives you a run-time tradeoff between better accuracy and speed.
+#' @param include.distance Include the corresponding distances
+#' @param index optional index object, will be recomputed if not provided
 AnnoyNN <- function(data,
                     query = data,
                     metric = "euclidean",
@@ -207,13 +205,12 @@ AnnoyNN <- function(data,
 
 # Build the annoy index
 #
-# @param data Data to build the index with
-# @param metric Distance metric; can be one of "euclidean", "cosine", "manhattan",
-# "hamming"
-# @param n.trees More trees gives higher precision when querying
+#' @param data Data to build the index with
+#' @param metric Distance metric; can be one of "euclidean", "cosine", "manhattan",
+#' "hamming"
+#' @param n.trees More trees gives higher precision when querying
 #
 #' @importFrom RcppAnnoy AnnoyEuclidean AnnoyAngular AnnoyManhattan AnnoyHamming
-#
 AnnoyBuildIndex <- function(data, metric = "euclidean", n.trees = 50) {
   f <- ncol(x = data)
   a <- switch(
@@ -246,7 +243,6 @@ AnnoyBuildIndex <- function(data, metric = "euclidean", n.trees = 50) {
 #
 #' @importFrom future plan
 #' @importFrom future.apply future_lapply
-#
 AnnoySearch <- function(index, query, k, search.k = -1, include.distance = TRUE) {
   n <- nrow(x = query)
   idx <- matrix(nrow = n,  ncol = k)
