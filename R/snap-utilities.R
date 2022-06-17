@@ -900,14 +900,17 @@ rmBmatFromSnap <- function(obj) {
 rmBmatFromSnap.default <- function(obj) {
   # close the previously opened H5 file
   if (missing(obj)) {
-    stop("obj is missing")
+    warning("obj is missing")
+    return(obj)
   } else {
     if (!is(obj, "snap")) {
-      stop("obj is not a snap object")
+      warning("obj is not a snap object")
+      return(obj)
     }
     data.use <- methods::slot(obj, "bmat")
     if ((x <- nrow(data.use)) == 0L) {
-      stop("cell-by-bin matrix does not exist in obj")
+      warning("cell-by-bin matrix does not exist in obj")
+      return(obj)
     }
   }
 
@@ -939,14 +942,17 @@ rmPmatFromSnap <- function(obj) {
 rmPmatFromSnap.default <- function(obj) {
   # close the previously opened H5 file
   if (missing(obj)) {
-    stop("obj is missing")
+    warning("obj is missing")
+    return(obj)
   } else {
     if (!is(obj, "snap")) {
-      stop("obj is not a snap object")
+      warning("obj is not a snap object")
+      return(obj)
     }
     data.use <- methods::slot(obj, "pmat")
     if ((x <- nrow(data.use)) == 0L) {
-      stop("cell-by-peak matrix does not exist in obj")
+      warning("cell-by-peak matrix does not exist in obj")
+      return(obj)
     }
   }
 
@@ -978,14 +984,17 @@ rmGmatFromSnap <- function(obj) {
 rmGmatFromSnap.default <- function(obj) {
   # close the previously opened H5 file
   if (missing(obj)) {
-    stop("obj is missing")
+    warning("obj is missing")
+    return(obj)
   } else {
     if (!is(obj, "snap")) {
-      stop("obj is not a snap object")
+      warning("obj is not a snap object")
+      return(obj)
     }
     data.use <- methods::slot(obj, "gmat")
     if ((x <- nrow(data.use)) == 0L) {
-      stop("cell-by-gene matrix does not exist in obj")
+      warning("cell-by-gene matrix does not exist in obj")
+      return(obj)
     }
   }
 
