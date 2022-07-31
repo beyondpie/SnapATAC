@@ -665,6 +665,139 @@ addBmatToSnap.default <- function(obj, bin.size = 5000, do.par = FALSE, num.core
   return(obj)
 }
 
+#' Add cell-by-bin matrix
+#'
+#' This function fix the previous snap order issues.
+#' It takes a snap object as input and add the cell-by-bin
+#' matrix to the existing snap object.
+#'
+#' @param obj A snap object to add cell-by-bin matrix.
+#' @param bin.size Cell-by-bin matrix with bin size of bin.size
+#' will be added to snap object.
+#' @param do.par A logical variable indicates whether use multiple processors [FALSE].
+#' @param num.cores Number of processors to use [1].
+#' @param checkSnap bool, if TRUE check the corresponding snap files, default TRUE
+#'
+#' @examples
+#' file.name <- system.file("extdata", "demo.snap", package = "SnapATAC")
+#' demo.sp <- createSnap(file.name, sample = "demo", do.par = FALSE)
+#' showBinSizes(file.name)
+#' demo.sp <- addBmatToSnap(demo.sp, bin.size = 100000, do.par = FALSE)
+#' @return Return a snap object
+#' @importFrom rhdf5 h5read
+#' @importFrom GenomicRanges GRanges findOverlaps
+#' @importFrom IRanges IRanges
+#' @importFrom parallel mclapply
+#' @importFrom methods is
+#' @export
+#' @export
+addBmatToSnapv2 <- function(obj, bin.size = 5000, do.par = FALSE, num.cores = 1,
+                                  checkSnap = TRUE) {
+  # close the previously opened H5 file
+  if (exists("h5closeAll", where = "package:rhdf5", mode = "function")) {
+    rhdf5::h5closeAll()
+  } else {
+    rhdf5::H5close()
+  }
+  if (missing(obj)) {
+    stop("obj is missing")
+  } else {
+    if (!is(obj, "snap")) {
+      stop("obj is not a snap object")
+    }
+  }
+
+  if (!is.numeric(num.cores)) {
+    stop("num.cores is not an integer")
+  }
+  num.cores <- round(num.cores)
+
+  fileList <- as.list(unique(obj@file))
+
+  if (checkSnap) {
+    # check if snap files exist
+    if (!checkSnapFilesExist(fileList)) {
+      stop("Error: at least one snap file does not exist.")
+    }
+
+    # check if files are all snap files
+    if (!checkFilesSnapFiles(fileList, do.par = do.par, num.cores = num.cores)) {
+      stop("Error: at least one file is not snap file.")
+    }
+  }
+
+  # check if AM session exist
+  if (!checkSnapFileSession(fileList, "AM", do.par, num.cores)) {
+    stop("Error: at least one snap file has no bmat related AM session.")
+  }
+
+  message("check if the bin.size exist.")
+  if (do.par) {
+    hasBinsize <- unlist(mclapply(fileList, function(x) {
+      (bin.size %in% showBinSizes(x))
+    },
+    mc.cores = num.cores
+    ))
+  } else {
+    hasBinsize <- unlist(lapply(fileList, function(x) {
+      (bin.size %in% showBinSizes(x))
+    }))
+  }
+  if (any(hasBinsize == FALSE)) {
+    idx <- which(hasBinsize == FALSE)
+    print("error: chosen bin size does not exist in the following snap files")
+    print(fileList[idx])
+    stop()
+  }
+
+  # check if bins match
+  message("check if all the snaps have the same bins.")
+  if (do.par) {
+    bin.list <- mclapply(fileList, function(x) {
+      readBins(x, bin.size = bin.size)
+    },
+    mc.cores = num.cores
+    )
+  } else {
+    bin.list <- lapply(fileList, function(x) {
+      readBins(x, bin.size = bin.size)
+    })
+  }
+
+  if (!all(sapply(bin.list, FUN = identical, bin.list[[1]]))) {
+    stop("bins does not match between snap files, please regenerate the cell-by-bin matrix by snaptools")
+  }
+
+  # read the snap object
+  message("Epoch: reading cell-bin count matrix session ...")
+  if (do.par) {
+    obj.ls <- mclapply(fileList, function(file) {
+      idx <- which(obj@file == file)
+      addBmatToSnapSingle(obj[idx, ], file, bin.size = bin.size, checkSnap = FALSE)
+    }, mc.cores = num.cores)
+  } else {
+    obj.ls <- lapply(fileList, function(file) {
+      idx <- which(obj@file == file)
+      addBmatToSnapSingle(obj[idx, ], file, bin.size = bin.size, checkSnap = FALSE)
+    })
+  }
+
+  # combine
+  message("Combine the bmat.")
+  if ((x <- length(obj.ls)) == 1L) {
+    res <- obj.ls[[1]]
+  } else {
+    res <- snapListRbind(obj.ls, checkSnap = FALSE)
+  }
+  o1 <- paste(obj@file, obj@barcode, sep = ".")
+  o2 <- paste(res@file, res@barcode, sep = ".")
+  obj@feature <- res@feature
+  obj@bmat <- res@bmat[match(o1, o2), ]
+  rm(res, obj.ls)
+  gc()
+  return(obj)
+}
+
 #' Add cell-by-peak matrix
 #'
 #' This function takes a snap object as input and add the
