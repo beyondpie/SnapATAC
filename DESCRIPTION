@@ -37,8 +37,9 @@ Imports:
 	graphics, 
 	utils,
 	viridis,
-  doSNOW,
-  plot3D
+	doSNOW,
+	plot3D,
+	RcppAnnoy
 Suggests:
 	umap,
 	chromVAR,

@@ -9,15 +9,29 @@
 
 - When use `addBmatToSnap`, python2-version snaptools and python3-version snaptools give different colname names. But the matrix is the same. (Only the column order is different, so the matrix is then completely wrong even we align the colnames).
 
-## Install on Linux
+## Install under conda enviroment
 Use conda to maintain the enviroment.
 
-```
 ## SnapATAC depends on raster, which depends on terra, and terra needs gdal.
-conda install -c conda-forge libgdal
-## install SnapATAC
-## Add INSTALL_opts --no-lock if having "failed to create lock directory".
-Rscript -e 'remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu", INSTALL_opts = c("--no-lock"))'
+```
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+conda  create -n snapatac python=3.8
+
+conda  activate snapatac
+conda  install -c  conda-forge mamba
+
+mamba install -c conda-forge r-base r-essentials
+mamba install -c conda-forge r-xml r-terra r-devtools
+mamba install -c conda-forge r-sf r-units
+mamba install -c conda-forge r-sp r-raster
+```
+## install SnapATAC in R.
+**Important: do not update any packages especially like terra, since they are installed by conda not by R**
+```
+remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")`
 ```
 
 ## Install on MacOS
