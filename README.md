@@ -10,8 +10,9 @@
 - When use `addBmatToSnap`, python2-version snaptools and python3-version snaptools give different colname names. But the matrix is the same. (Only the column order is different, so the matrix is then completely wrong even we align the colnames).
 
 ## Install under conda enviroment
-Use conda to maintain the enviroment.
-
+1. Set up conda env
+See https://anaconda.org/beyondpie/snapatac as a reference. 
+Or we can create the conda env below:
 ```
 conda config --add channels defaults
 conda config --add channels bioconda
@@ -26,12 +27,14 @@ mamba install -c conda-forge r-base r-essentials
 mamba install -c conda-forge r-xml r-terra r-devtools
 mamba install -c conda-forge r-sf r-units
 mamba install -c conda-forge r-sp r-raster
-
+```
+2. In R, install SnapATAC.
+```
 ## Important: do not update any packages especially like terra
 ## since they are installed by conda not by R
 
 install.packages('remotes', repos = 'http://cran.us.r-project.org')
-remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")`
+remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")
 ```
 
 ## Install on MacOS
