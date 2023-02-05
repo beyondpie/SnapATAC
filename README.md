@@ -31,6 +31,7 @@ mamba install -c conda-forge r-sp r-raster
 ## install SnapATAC in R.
 **Important: do not update any packages especially like terra, since they are installed by conda not by R**
 ```
+install.packages('remotes', repos = 'http://cran.us.r-project.org')
 remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")`
 ```
 
