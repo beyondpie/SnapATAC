@@ -12,7 +12,6 @@
 ## Install under conda enviroment
 Use conda to maintain the enviroment.
 
-## SnapATAC depends on raster, which depends on terra, and terra needs gdal.
 ```
 conda config --add channels defaults
 conda config --add channels bioconda
@@ -27,10 +26,8 @@ mamba install -c conda-forge r-base r-essentials
 mamba install -c conda-forge r-xml r-terra r-devtools
 mamba install -c conda-forge r-sf r-units
 mamba install -c conda-forge r-sp r-raster
-```
-## install SnapATAC in R.
+
 **Important: do not update any packages especially like terra, since they are installed by conda not by R**
-```
 install.packages('remotes', repos = 'http://cran.us.r-project.org')
 remotes::install_github(repo = "beyondpie/SnapATAC", ref = "szu")`
 ```
