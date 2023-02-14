@@ -658,8 +658,10 @@ addBmatToSnap.default <- function(obj, bin.size = 5000, do.par = FALSE, num.core
   } else {
     res <- snapListRbind(obj.ls, checkSnap = FALSE)
   }
+  o1 <- paste(obj@file, obj@barcode, sep = ".")
+  o2 <- paste(res@file, res@barcode, sep = ".")
   obj@feature <- res@feature
-  obj@bmat <- res@bmat
+  obj@bmat <- res@bmat[match(o1,o2), , drop = FALSE]
   rm(res, obj.ls)
   gc()
   return(obj)
@@ -792,7 +794,7 @@ addBmatToSnapv2 <- function(obj, bin.size = 5000, do.par = FALSE, num.cores = 1,
   o1 <- paste(obj@file, obj@barcode, sep = ".")
   o2 <- paste(res@file, res@barcode, sep = ".")
   obj@feature <- res@feature
-  obj@bmat <- res@bmat[match(o1, o2), ]
+  obj@bmat <- res@bmat[match(o1, o2), , drop = FALSE]
   rm(res, obj.ls)
   gc()
   return(obj)
@@ -915,7 +917,7 @@ addPmatToSnap.default <- function(obj, do.par = FALSE, num.cores = 1) {
   o1 <- paste(obj@file, obj@barcode, sep = ".")
   o2 <- paste(res@file, res@barcode, sep = ".")
   obj@peak <- res@peak
-  obj@pmat <- res@pmat[match(o1, o2), ]
+  obj@pmat <- res@pmat[match(o1, o2), , drop = FALSE]
   rm(obj.ls, res, o1, o2)
   gc()
   return(obj)
@@ -1005,7 +1007,7 @@ addGmatToSnap.default <- function(obj, do.par = FALSE, num.cores = 1, checkSnap 
   }
   o1 <- paste(obj@file, obj@barcode, sep = ".")
   o2 <- paste(res@file, res@barcode, sep = ".")
-  obj@gmat <- res@gmat[match(o1, o2), ]
+  obj@gmat <- res@gmat[match(o1, o2), , drop = FALSE]
   rm(obj.ls, res, o1, o2)
   gc()
   return(obj)
